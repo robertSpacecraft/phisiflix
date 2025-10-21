@@ -1,0 +1,14 @@
+{
+    "name": "robert/physiflix",
+    "description": "Proyecto DWS Robert",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Roberto Amorós"
+        }
+    ],
+    "require": {
+        "phroute/phroute": "^2.2",
+        "twbs/bootstrap": "5.3.8"
+    }
+}

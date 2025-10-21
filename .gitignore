@@ -1,0 +1,57 @@
+# === PHP / Composer ===
+/src/vendor/
+composer.lock
+
+# === Archivos de entorno ===
+.env
+.env.*
+.env.local
+
+# === Docker general ===
+/.docker/mariadb/
+/.docker/apache/*.log
+/.docker/php/php.ini
+/.docker/xdebug/debug.ini
+/.docker/apache/000-default.conf
+/.docker/*Zone.Identifier
+/docker-compose.override.yml
+/docker-data/
+/volumes/
+/logs/
+/tmp/
+/docker-entrypoint-initdb.d/
+/var/lib/mysql/
+/var/lib/mongodb/
+/data/db/
+
+# === IDEs y editores ===
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# === Archivos del sistema ===
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+*.bak
+*Zone.Identifier
+
+# === Frontend (si se añade más tarde) ===
+node_modules/
+
+# === Subidas o datos generados ===
+/src/public/uploads/
+/src/tmp/
+/src/cache/
+
+# === Archivos de prueba o comprimidos ===
+test/
+tests/
+*.zip
+*.tar
+*.gz
