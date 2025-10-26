@@ -1,13 +1,40 @@
 <?php
     include_once "vendor/autoload.php";
     use Phroute\Phroute\RouteCollector;
+    use App\Controller\UserController;
+
+    //Crea una instancia del router
     $router = new RouteCollector();
 
-    //Definición de rutas:
+//Rutas de mi aplicación
+//API REST CRUD
+$router->get('/user', [UserController::class, 'index']);
+$router->get('/user/{id}', [UserController::class, 'show']);
+$router->post('/user', [UserController::class, 'store']);
+$router->put('/user/{id}', [UserController::class, 'update']);
+$router->delete('/user/{id}', [UserController::class, 'destroy']);
+
+$router->get('/physic', [PhysicController::class, 'index']);
+$router->get('/physic/{id}', [PhysicController::class, 'show']);
+$router->post('/physic', [PhysicController::class, 'store']);
+$router->put('/physic/{id}', [PhysicController::class, 'update']);
+$router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
+
+
+
+
+
+
+
+
+
+
+    //Definición de rutas frontend:
     $router->get('/', function () {
         include_once "app/views/frontend/welcome.php";
     });
 
+    //Definición de rutas backend
     $router->get('/admin', function () {
        include_once "app/views/backend/welcome.php";
     });
