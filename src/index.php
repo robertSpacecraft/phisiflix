@@ -1,5 +1,8 @@
 <?php
     include_once "vendor/autoload.php";
+    include_once "app/env.php";
+    include_once "app/auxiliar/funciones-aux.php";
+
     use Phroute\Phroute\RouteCollector;
     use App\Controller\UserController;
 
@@ -22,31 +25,44 @@ $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
 
 
 
-
-
-
-
-
-
-
     //Definición de rutas frontend:
+   /* $router->any('/', function (){
+        include_once "app/views/frontend/error404.php";
+    });*/
     $router->get('/', function () {
-        include_once "app/views/frontend/welcome.php";
+        include_once DIRECTORIO_FRONTEND."welcome.php";
     });
 
     //Definición de rutas backend
     $router->get('/admin', function () {
-       include_once "app/views/backend/welcome.php";
+       include_once DIRECTORIO_BACKEND."welcome.php";
     });
 
     $router->get('/login', function () {
-       include_once "app/views/backend/login.php";
+       include_once DIRECTORIO_BACKEND."login.php";
     });
 
-# NB. You can cache the return value from $router->getData() so you don't have to create the routes each request - massive speed gains
-$dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
+    //Funciones
 
-$response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+//Calcula la letra de un DNI que llega por GET (url)
+$router->get('/letra-dni', function () {
 
-// Print out the value returned from the dispatched function
-echo $response;
+    $resultado = '';
+    if (isset($_GET["dni"])){
+        $resultado = calcularLetraDNI($_GET["dni"]);
+    } else {
+        $resultado = "No se ha recibido ningún parámetro";
+    }
+});
+
+$router->get('/administracion', function () {});
+
+//Si la ruta no existe lo manda a error404
+try {
+    $dispatcher = new Phroute\Phroute\Dispatcher($router->getData());
+    $response = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+    echo $response;
+} catch (Exception $e) {
+    $mensaje = "La página que buscas no existe o ha sido movida.";
+    include_once DIRECTORIO_FRONTEND."error404.php";
+}

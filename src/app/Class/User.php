@@ -14,14 +14,12 @@ class User
     private string $email;
     private string $password;
     private DateTime $birthday;
-    private DesbloqueadosList $list;
     private UserType $type;
 
     public function __construct(UuidInterface $id, string $username){
         $this->id = $id;
         $this->username = $username;
         $this->type=UserType::REGULAR;
-        $this->list = new DesbloqueadosList();
     }
 
 
