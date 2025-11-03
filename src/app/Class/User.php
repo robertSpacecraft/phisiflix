@@ -15,6 +15,7 @@ class User
     private string $password;
     private DateTime $birthday;
     private UserType $type;
+    private array $desbloqueados = []; //array de Physic
 
     public function __construct(UuidInterface $id, string $username){
         $this->id = $id;
@@ -103,5 +104,17 @@ class User
     public static function fromArray(array $userData): User{
         return new User();
     }
+
+    public function getDesbloqueados(): array
+    {
+        return $this->desbloqueados;
+    }
+
+    public function setDesbloqueados(array $desbloqueados): User
+    {
+        $this->desbloqueados = $desbloqueados;
+        return $this;
+    }
+
 
 }

@@ -6,7 +6,7 @@ services:
       context: .docker
       dockerfile: Dockerfile
     container_name: php_apache
-    user: 1000:1000
+    user: robert:robert
 
     volumes:
       - ./src:/var/www/html

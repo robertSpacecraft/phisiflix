@@ -4,10 +4,16 @@
     include_once "app/auxiliar/funciones-aux.php";
 
     use Phroute\Phroute\RouteCollector;
+
     use App\Controller\UserController;
+    use App\Controller\PhysicController;
 
     //Crea una instancia del router
     $router = new RouteCollector();
+
+$router->get('/', function () {
+    include_once DIRECTORIO_FRONTEND."welcome.php";
+});
 
 //Rutas de mi aplicación
 //API REST CRUD
@@ -25,37 +31,42 @@ $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
 
 
 
-    //Definición de rutas frontend:
-   /* $router->any('/', function (){
-        include_once "app/views/frontend/error404.php";
-    });*/
-    $router->get('/', function () {
-        include_once DIRECTORIO_FRONTEND."welcome.php";
+
+    $router->get('/register', function () {
+       include_once DIRECTORIO_FRONTEND."register.php";
     });
 
     //Definición de rutas backend
     $router->get('/admin', function () {
-       include_once DIRECTORIO_BACKEND."welcome.php";
+       include_once DIRECTORIO_BACKEND . "admin.php";
     });
 
     $router->get('/login', function () {
        include_once DIRECTORIO_BACKEND."login.php";
     });
 
+
     //Funciones
+    //Calcula la letra de un DNI que llega por GET (url)
+    $router->get('/letra-dni', function () {
+        $resultado = '';
+        if (isset($_GET["dni"])){
+            $resultado = calcularLetraDNI($_GET["dni"]);
+        } else {
+            $resultado = "No se ha recibido ningún parámetro";
+        }
+    });
 
-//Calcula la letra de un DNI que llega por GET (url)
-$router->get('/letra-dni', function () {
-
-    $resultado = '';
-    if (isset($_GET["dni"])){
-        $resultado = calcularLetraDNI($_GET["dni"]);
-    } else {
-        $resultado = "No se ha recibido ningún parámetro";
-    }
+//Rutas vistas Administración de físicos
+$router->get('/administration/physic/create', function () {
+    include_once DIRECTORIO_BACKEND."add-Physic.php";
+});
+$router->get('/administration/physic/{$id}/edit', function ($id) {
+    include_once DIRECTORIO_BACKEND."edit-Physic.php";
 });
 
-$router->get('/administracion', function () {});
+
+
 
 //Si la ruta no existe lo manda a error404
 try {

@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="copyright text-center ">
-            <p>© <span>Copyright</span> <strong class="px-1 sitename">PhotoFolio</strong> <span>All Rights Reserved</span></p>
+            <p>© <span>Copyright</span> <strong class="px-1 sitename">PhysiFlix</strong> <span>All Rights Reserved</span></p>
         </div>
         <div class="social-links d-flex justify-content-center">
             <a href=""><i class="bi bi-twitter-x"></i></a>
@@ -40,8 +40,6 @@
 <script src="/app/views/frontend/templates/PhotoFolio/assets/vendor/aos/aos.js"></script>
 <!-- Main JS File-->
 <script src="/app/views/frontend/templates/PhotoFolio/assets/js/main.js"></script>
-<!-- Scroll Top -->
-<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
 </body>
 

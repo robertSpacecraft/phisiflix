@@ -3,13 +3,14 @@
 namespace App\Controller;
 
 use App\Interface\ControlerInterface;
-
+use App\Class\Physic;
+use Ramsey\Uuid\Rfc4122\UuidV4;
 class PhysicController implements ControlerInterface
 {
 
     public function index()
     {
-        // TODO: Implement index() method.
+        return "estás en PhysicController función index";
     }
 
     public function show($id)
@@ -19,7 +20,10 @@ class PhysicController implements ControlerInterface
 
     public function store()
     {
-        // TODO: Implement store() method.
+        var_dump($_POST);
+        var_dump($_FILES);
+        uploadImg('foto');
+        return true;
     }
 
     public function update($id)

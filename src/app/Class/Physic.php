@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Class;
-use App\Enum\PhysicSex;
+use App\Enum\PhysicGenero;
 use App\Enum\PhysicType;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -11,11 +11,11 @@ class Physic
     private UuidInterface $id;
     private string $nombre;
     private string $apellido;
-    private PhysicSex $sex;
+    private PhysicGenero $genero;
     private string $lugar_nac;
     private string $lugar_def;
     private string $descripcion;
-    private string $etiqueta;
+    private string $etiqueta; //palabras clave (relatividad, gravedad, radiación, etc)
     private PhysicType $type;
     private string $foto;
     private array $hito = [];
@@ -58,14 +58,14 @@ class Physic
         return $this;
     }
 
-    public function getSex(): PhysicSex
+    public function getGenero(): PhysicGenero
     {
-        return $this->sex;
+        return $this->genero;
     }
 
-    public function setSex(PhysicSex $sex): Physic
+    public function setGenero(PhysicGenero $genero): Physic
     {
-        $this->sex = $sex;
+        $this->genero = $genero;
         return $this;
     }
 

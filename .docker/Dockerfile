@@ -39,6 +39,8 @@ RUN apt-get update && apt-get upgrade -y && apt-get install -y \
 
 WORKDIR /var/www/html
 
+RUN useradd robert && usermod -aG sudo robert
+
 #Instalación de Composer
 COPY --from=composer:2.8.11 /usr/bin/composer /usr/local/bin/composer
 
