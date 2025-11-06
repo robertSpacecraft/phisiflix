@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>PhysiFlix</title>
+    <title><?=$titulo?></title>
     <meta name="description" content="Plataforma para conocer la historia de la física a través de sus protagonistas">
     <meta name="keywords" content="">
 
     <!-- Favicons -->
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/img/favicon.png" rel="icon">
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="<?=DIRECTORIO_IMG_FRONTEND?>favicon.png" rel="icon">
+    <link href="<?=DIRECTORIO_IMG_FRONTEND?>apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -18,14 +18,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Cardo:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>bootstrap.min.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>aos/aos.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>css_glightbox/glightbox.min.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
-    <link href="/app/views/frontend/templates/PhotoFolio/assets/css/main.css" rel="stylesheet">
+    <link href="<?=DIRECTORIO_CSS_FRONTEND?>main.css" rel="stylesheet">
 
     <!-- =======================================================
     * Template Name: PhotoFolio
@@ -42,7 +42,7 @@
 
         <a href="#" class="logo d-flex align-items-center me-auto me-xl-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
-            <img src="/app/views/frontend/templates/PhotoFolio/assets/img/logo3SinFondo.png" alt="">
+            <img src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="">
         </a>
 
         <nav id="navmenu" class="navmenu">

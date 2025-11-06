@@ -1,10 +1,10 @@
 <?php
 $titulo = "Administración de Physics";
 $tituloSeccion = "Resumen";
-include_once "./app/views/backend/templates/partials/head.admin.php";
-include_once "./app/views/backend/templates/partials/header.admin.php";
-include_once "./app/views/backend/templates/partials/aside.admin.php";
-include_once "./app/views/backend/templates/partials/main.header.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
 ?>
 
     <table class="table">
@@ -39,4 +39,4 @@ include_once "./app/views/backend/templates/partials/main.header.admin.php";
     </table>
 
 <?php
-include_once "./app/views/backend/templates/partials/footer.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/footer.admin.php";

@@ -11,39 +11,53 @@
     //Crea una instancia del router
     $router = new RouteCollector();
 
-$router->get('/', function () {
-    include_once DIRECTORIO_FRONTEND."welcome.php";
-});
+    //Rutas Frontend
+    $router->get('/', function () {
+        include_once DIRECTORIO_FRONTEND."welcome.php";
+    });
+
+    $router->get('/register', function () {
+        include_once DIRECTORIO_FRONTEND."register.php";
+    });
+
+    //Definición de rutas backend
+    $router->get('/admin', function () {
+        include_once DIRECTORIO_BACKEND . "admin.php";
+    });
+    $router->get('/admin/physics', function () {
+        include_once DIRECTORIO_BACKEND . "admin-physics.php";
+    });
+
+    $router->get('/login', function () {
+        include_once DIRECTORIO_BACKEND."login.php";
+    });
 
 //Rutas de mi aplicación
+$router->post('/user/login', [UserController::class, 'verify']);
+$router->get('/user/{id}/edit', [UserController::class, 'edit']);
+
+
 //API REST CRUD
+$router->get('/user/create', [UserController::class, 'create']);
 $router->get('/user', [UserController::class, 'index']);
 $router->get('/user/{id}', [UserController::class, 'show']);
 $router->post('/user', [UserController::class, 'store']);
 $router->put('/user/{id}', [UserController::class, 'update']);
 $router->delete('/user/{id}', [UserController::class, 'destroy']);
 
+//Physic
+$router->get('/admin/physic/create', function () {
+    include_once DIRECTORIO_BACKEND."add-Physic.php";
+});
+$router->get('/admin/physic/{$id}/edit', function ($id) {
+    include_once DIRECTORIO_BACKEND."edit-Physic.php";
+});
+
 $router->get('/physic', [PhysicController::class, 'index']);
 $router->get('/physic/{id}', [PhysicController::class, 'show']);
 $router->post('/physic', [PhysicController::class, 'store']);
 $router->put('/physic/{id}', [PhysicController::class, 'update']);
 $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
-
-
-
-
-    $router->get('/register', function () {
-       include_once DIRECTORIO_FRONTEND."register.php";
-    });
-
-    //Definición de rutas backend
-    $router->get('/admin', function () {
-       include_once DIRECTORIO_BACKEND . "admin.php";
-    });
-
-    $router->get('/login', function () {
-       include_once DIRECTORIO_BACKEND."login.php";
-    });
 
 
     //Funciones
@@ -56,15 +70,6 @@ $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
             $resultado = "No se ha recibido ningún parámetro";
         }
     });
-
-//Rutas vistas Administración de físicos
-$router->get('/administration/physic/create', function () {
-    include_once DIRECTORIO_BACKEND."add-Physic.php";
-});
-$router->get('/administration/physic/{$id}/edit', function ($id) {
-    include_once DIRECTORIO_BACKEND."edit-Physic.php";
-});
-
 
 
 

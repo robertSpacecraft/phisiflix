@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cuenta Clon</title>
-    <link rel="stylesheet" href="app/views/backend/templates/netflixPlantilla/css/cuenta.css" /><!-- Aplico css externo -->
-    <link rel="shortcut icon" type="image/jpg" href="img/netflix-flavicon.png" />
+    <title>PhysiFlix</title>
+    <link rel="stylesheet" href="<?=DIRECTORIO_CSS_BACKEND?>cuenta.css" /><!-- Aplico css externo -->
+    <link rel="shortcut icon" type="image/jpg" href="<?=DIRECTORIO_IMG_FRONTEND?>favicon.png" />
     <meta name="keywords" content="html,css,clon netflix" />
     <meta name="description"
           content="Clon del login de usuario de Netflix España hecho con HTML y CSS para la asignatura de Lenguajes de Marcas del IES Fernando Wirtz" />
@@ -26,19 +26,21 @@
 <body>
 <div class="contenido">
     <nav>
-        <img class="logo" src="/app/views/frontend/templates/PhotoFolio/assets/img/logo3SinFondo.png" alt="physiFlixLogo" />
+        <img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" />
     </nav>
     <div class="caja">
         <h2>Iniciar sesión</h2>
+        <form action="/user/login" method="post">
         <div class="form">
             <input
                 type="text"
-                placeholder="Correo electrónico o número de teléfono"
+                placeholder="Correo electrónico o nombre de usuario"
                 required
+                id="inputUsername" name="username"
             />
-            <input type="password" placeholder="Contraseña" required />
+            <input type="password" placeholder="Contraseña" id="inputPassword" name="password" required />
         </div>
-        <button>Iniciar sesión</button>
+        <button type="submit">Iniciar sesión</button>
         <div class="checkbox">
             <div class="recordar">
                 <input type="checkbox" id="checkbox1"/>
@@ -48,6 +50,7 @@
                 <p>¿Necesitas ayuda?</p>
             </div>
         </div>
+        </form>
         <div class="subscripcion">
             <p>¿Todavía sin Netflix? <span>Subscríbete ya.</span></p>
             <p>Esta página utiliza Google reCAPTCHA para garantizar que no eres un robot.

@@ -10,7 +10,8 @@
     "require": {
         "phroute/phroute": "^2.2",
         "twbs/bootstrap": "5.3.8",
-        "ramsey/uuid": "^4.9"
+        "ramsey/uuid": "^4.9",
+        "respect/validation": "^2.4"
     },
     "autoload": {
       "psr-4": {

@@ -37,9 +37,9 @@
 <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
 <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
 -->
-<script src="/app/views/frontend/templates/PhotoFolio/assets/vendor/aos/aos.js"></script>
+<script src="<?=DIRECTORIO_CSS_FRONTEND?>aos/aos.js"></script>
 <!-- Main JS File-->
-<script src="/app/views/frontend/templates/PhotoFolio/assets/js/main.js"></script>
+<script src="<?=DIRECTORIO_JS_FRONTEND?>main.js"></script>
 
 </body>
 

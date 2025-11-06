@@ -12,7 +12,7 @@ class Physic
     private string $nombre;
     private string $apellido;
     private PhysicGenero $genero;
-    private string $lugar_nac;
+    private string $lugar_nac; //Cambiar por nacionalidad
     private string $lugar_def;
     private string $descripcion;
     private string $etiqueta; //palabras clave (relatividad, gravedad, radiación, etc)

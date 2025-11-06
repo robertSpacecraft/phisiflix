@@ -1,5 +1,5 @@
 <?php
-include_once "app/views/frontend/templates/partials/header.php";
+include_once DIRECTORIO_FRONTEND."/templates/partials/header.php";
 ?>
     <section class="d-flex align-items-center min-vh-100 py-5">
         <div class="container py-5">
@@ -42,4 +42,4 @@ include_once "app/views/frontend/templates/partials/header.php";
 
 
 <?php
-include_once "app/views/frontend/templates/partials/footer.php";
+include_once DIRECTORIO_FRONTEND."/templates/partials/footer.php";

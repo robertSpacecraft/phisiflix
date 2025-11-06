@@ -1,12 +1,12 @@
 <?php
 $titulo = "Administración de Physics";
 $tituloSeccion = "Agregar un nuevo físico";
-include_once "./app/views/backend/templates/partials/head.admin.php";
-include_once "./app/views/backend/templates/partials/header.admin.php";
-include_once "./app/views/backend/templates/partials/aside.admin.php";
-include_once "./app/views/backend/templates/partials/main.header.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
 ?>
-    <form method="post" action="/phisic" enctype="multipart/form-data">
+    <form method="post" action="/physic" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="formControlNombre" class="form-label">Nombre del físico:</label>
             <input type="text" class="form-control" id="formControlNombre" name="nombre" required>
@@ -55,4 +55,4 @@ include_once "./app/views/backend/templates/partials/main.header.admin.php";
 
 
 <?php
-include_once "./app/views/backend/templates/partials/footer.admin.php";
+include_once DIRECTORIO_BACKEND."/templates/partials/footer.admin.php";
