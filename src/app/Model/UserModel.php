@@ -35,6 +35,16 @@ class UserModel
         return $usuario1;
     }
 
+    public static function getUserByUsername($username): ?User{
+        $usuario1 = new User(Uuid::uuid4(), "roberto");
+        $usuario1->setEmail("roberto@mail.com");
+        $usuario1->setPassword(password_hash("otrebor", PASSWORD_DEFAULT));
+        $usuario1->setBirthdate(\DateTime::createFromFormat('Y-m-d', "1984-05-05"));
+        $usuario1->setType(UserType::ADMIN);
+
+        return $usuario1;
+    }
+
     public static function saveUser(User $user): bool{
         return true;
     }

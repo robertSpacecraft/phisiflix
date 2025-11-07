@@ -8,6 +8,8 @@
     use App\Controller\UserController;
     use App\Controller\PhysicController;
 
+    session_start();
+
     //Crea una instancia del router
     $router = new RouteCollector();
 
@@ -34,6 +36,7 @@
 
 //Rutas de mi aplicación
 $router->post('/user/login', [UserController::class, 'verify']);
+$router->get('/logout', [UserController::class, 'logout']);
 $router->get('/user/{id}/edit', [UserController::class, 'edit']);
 
 

@@ -188,8 +188,7 @@
     <a
         class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white"
         href="#"
-    >PhysiFlix</a
-    >
+    >PhysiFlix</a>
     <ul class="navbar-nav flex-row d-md-none">
         <li class="nav-item text-nowrap">
             <button
@@ -229,6 +228,15 @@
             placeholder="Search"
             aria-label="Search"
         />
+    </div>
+    <div class="d-flex m2">
+    <p class="text-primary-emphasis m-2">Hola, <?php if (isset($_SESSION['user'])){
+       echo $_SESSION['user']->getUsername();
+    } else {
+        echo 'desconocido';
+        } ?></p>
+
+        <a href="/logout"> <button class="btn btn-outline-success" type="button">Cerrar Sesión</button></a>
     </div>
 </header>
 <div class="container-fluid">

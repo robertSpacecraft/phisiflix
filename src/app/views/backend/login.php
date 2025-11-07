@@ -41,6 +41,7 @@
             <input type="password" placeholder="Contraseña" id="inputPassword" name="password" required />
         </div>
         <button type="submit">Iniciar sesión</button>
+            <div class="alert-danger"><?php if (isset($error)) {echo $error;} ?></div>
         <div class="checkbox">
             <div class="recordar">
                 <input type="checkbox" id="checkbox1"/>

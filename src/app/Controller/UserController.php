@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Class\User;
+use App\Enum\UserType;
 use App\Interface\ControlerInterface;
 use App\Model\UserModel;
 use Ramsey\Uuid\Rfc4122\UuidV4;
@@ -10,11 +11,19 @@ use Ramsey\Uuid\Rfc4122\UuidV4;
 class UserController implements ControlerInterface
 {
     public function index(){
-       //Recuperar todos los usuarios de la base de datos
-        $usuarios = UserModel::getAllUsers();
+        //Comprobar que es el usuario es de tipo administrador
+        if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()){
+            //Recuperar todos los usuarios de la base de datos
+            $usuarios = UserModel::getAllUsers();
 
-        //Llamar a la vista que represente a estos usuarios
-        include_once DIRECTORIO_BACKEND . "showUsers.php";
+            //Llamar a la vista que represente a estos usuarios
+            include_once DIRECTORIO_BACKEND . "showUsers.php";
+        } else {
+            $error = "No tiene permisos para acceder a este recurso";
+            include_once DIRECTORIO_FRONTEND . "error.php";
+        }
+
+
 
     }
     public function show($id){
@@ -79,6 +88,32 @@ class UserController implements ControlerInterface
     }
 
     public function verify(){
-        var_dump($_POST);
+        //Buscar en la BD el usuario por su username
+        $usuario = UserModel::getUserByUsername($_POST['username']);
+        if ($usuario==null) {
+            //Esto no le funcionaba al profe, a mi sí
+            //include_once DIRECTORIO_FRONTEND."error404.php";
+            $error = "Nombre de usuario no encontrado";
+        }
+
+        //Comprobar si la contraseña introducida es igual a la que está almacenada
+        if (password_verify($_POST['password'], $usuario->getPassword())) {
+            $_SESSION['user']=$usuario;
+            if ($usuario->getType() === UserType::ADMIN){
+                //include_once DIRECTORIO_BACKEND . "admin.php";
+                header('location: /user');
+            }else {
+                //include_once DIRECTORIO_FRONTEND . "welcome.php";
+                header('location: /');
+            }
+        } else {
+            $error = "No se ha podido iniciar sesión. Usuario o contraseña no válido";
+        }
+        include_once DIRECTORIO_BACKEND."login.php";
+
+    }
+
+    public function logout(){
+        session_destroy();
     }
 }

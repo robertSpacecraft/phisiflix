@@ -179,5 +179,13 @@ class User
             return User::editFromArray($userData);
         }
 
+        //Comprueba si el usuario de la sesión es un ADMIN
+        public function isAdmin(): bool{
+            if ($this->type===UserType::ADMIN) {
+                return true;
+            }
+            return false;
+        }
+
 
 }
