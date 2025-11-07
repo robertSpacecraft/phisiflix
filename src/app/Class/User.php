@@ -2,6 +2,7 @@
 
 namespace App\Class;
 
+use App\Model\UserModel;
 use \DateTime;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 use Ramsey\Uuid\Uuid;
