@@ -40,7 +40,7 @@
 <header id="header" class="header d-flex align-items-center sticky-top">
     <div class="container-fluid position-relative d-flex align-items-center justify-content-between">
 
-        <a href="#" class="logo d-flex align-items-center me-auto me-xl-0">
+        <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
             <!-- Uncomment the line below if you also wish to use an image logo -->
             <img src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="">
         </a>
@@ -48,31 +48,24 @@
         <nav id="navmenu" class="navmenu">
             <ul>
                 <li><a href="#" class="active">Home<br></a></li>
-                <li><a href="#">About</a></li>
-                <li class="dropdown"><a href="#"><span>Gallery</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <li><a href="#">Más sobre PhysiFlix</a></li>
+                <li class="dropdown"><a href="#"><span>Descubre la historia</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                     <ul>
-                        <li><a href="#">Nature</a></li>
-                        <li><a href="#">People</a></li>
-                        <li><a href="#">Architecture</a></li>
-                        <li><a href="#">Animals</a></li>
-                        <li><a href="#">Sports</a></li>
-                        <li><a href="#">Travel</a></li>
-                        <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                            <ul>
-                                <li><a href="#">Deep Dropdown 1</a></li>
-                                <li><a href="#">Deep Dropdown 2</a></li>
-                                <li><a href="#">Deep Dropdown 3</a></li>
-                                <li><a href="#">Deep Dropdown 4</a></li>
-                                <li><a href="#">Deep Dropdown 5</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="#">Personajes</a></li>
+                        <li><a href="#">Hitos</a></li>
+                        <li><a href="#">Experimentos</a></li>
+                        <li><a href="#">Quiz</a></li>
+                        <li><a href="#">Línea del tiempo</a></li>
                     </ul>
                 </li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#">Aprende</a></li>
+                <li><a href="#">Contacto</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
+        <div class="btn">
+            <a href="/login" class="btn btn-outline-secondary">Iniciar sesión</a>
+        </div>
 
         <div class="header-social-links">
             <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>

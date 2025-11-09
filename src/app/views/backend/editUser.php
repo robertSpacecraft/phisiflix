@@ -3,6 +3,8 @@ use App\Enum\UserType;
 
 $titulo = "Administración de Physics";
 $tituloSeccion = "Datos del usuario " .$usuario->getUsername();
+$rutaAgregar = "/user/create";
+$botonAgregar = "Agregar usuario";
 include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
@@ -47,6 +49,11 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
         </div>
 
         <button type="submit" class="btn btn-primary" onclick="peticionPUT()">Modificar Usuario</button>
+        <a href="/user/<?=$usuario->getId()?>" class="btn btn-primary"
+           onclick="return confirm('Esta acción cancelará los cambios ¿deseas continuar?')">
+            Cancelar
+        </a>
+
     </form>
     <script>
         function peticionPUT(){

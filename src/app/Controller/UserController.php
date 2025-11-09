@@ -23,8 +23,6 @@ class UserController implements ControlerInterface
             include_once DIRECTORIO_FRONTEND . "error.php";
         }
 
-
-
     }
     public function show($id){
        //Recuperar los datos del usuario con el valor de la $id desde la BD
@@ -49,10 +47,11 @@ class UserController implements ControlerInterface
             //Se ha producido un erro en la validación del usuario
             return include_once DIRECTORIO_BACKEND . "createUser.php";
         } else {
-            //No se ha producido ningún error
-
-            //Tenemos que guardarlos en la BD
-            //UserModel::saveUser($usuario);
+            //No se ha producido ningún error y hay que almacenar el usuario
+            //Encriptamos el password del usuario
+            $resultado->setPassword(password_hash($resultado->getPassword(), PASSWORD_DEFAULT));
+            //Guardamos en la BD
+            UserModel::saveUser($resultado);
 
         }
 
@@ -84,7 +83,11 @@ class UserController implements ControlerInterface
     }
 
     public function destroy($id){
-        return "Se está intentando borrar el usuario $id";
+        UserModel::deleteUserById($id);
+    }
+
+    public function destroyAll(){
+        UserModel::deleteUserAllUsers();
     }
 
     public function verify(){

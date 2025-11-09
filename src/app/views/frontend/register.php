@@ -26,7 +26,7 @@
 <body>
 <div class="contenido">
     <nav>
-        <img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" />
+        <a href="/"><img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" /></a>
     </nav>
     <form method="POST" action="/user">
     <div class="caja">

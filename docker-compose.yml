@@ -43,8 +43,8 @@ services:
     environment:
       MARIADB_ROOT_PASSWORD: toor
       MARIADB_DATABASE: proyecto
-      MARIADB_USER: miguel
-      MARIADB_PASSWORD: leugim
+      MARIADB_USER: roberto
+      MARIADB_PASSWORD: otrebor
 
     command:
       --default-authentication-plugin=mysql_native_password

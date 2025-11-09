@@ -1,6 +1,8 @@
 <?php
 $titulo = "Administración de Physics";
 $tituloSeccion = "Agregar un nuevo físico";
+$rutaAgregar = "/admin/physic/create";
+$botonAgregar = "Agregar físico";
 include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";

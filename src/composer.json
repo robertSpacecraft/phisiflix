@@ -11,7 +11,8 @@
         "phroute/phroute": "^2.2",
         "twbs/bootstrap": "5.3.8",
         "ramsey/uuid": "^4.9",
-        "respect/validation": "^2.4"
+        "respect/validation": "^2.4",
+      "ext-pdo": "*"
     },
     "autoload": {
       "psr-4": {

@@ -1,6 +1,8 @@
 <?php
 $titulo = "Administración de Physics";
 $tituloSeccion = "Datos del usuario " .$usuario->getUsername();
+$rutaAgregar = "/user/create";
+$botonAgregar = "Agregar usuario";
 include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
@@ -19,6 +21,9 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
         <div class="d-grid gap-2 d-md-block">
             <button class="btn btn-outline-secondary" type="button" onclick="irAModificarUsuario()">Modificar Usuario</button>
             <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmacionBorrarModal">Borrar Usuario</button>
+            <div>
+                <a href="/user" class="btn-primary">Volver</a>
+            </div>
         </div>
     </div>
     <!-- Modal -->

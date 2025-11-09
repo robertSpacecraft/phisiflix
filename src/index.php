@@ -26,6 +26,9 @@
     $router->get('/admin', function () {
         include_once DIRECTORIO_BACKEND . "admin.php";
     });
+    $router->get('/admin/welcome', function () {
+        include_once DIRECTORIO_BACKEND . "admin-welcome.php";
+    });
     $router->get('/admin/physics', function () {
         include_once DIRECTORIO_BACKEND . "admin-physics.php";
     });

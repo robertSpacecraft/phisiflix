@@ -119,8 +119,11 @@ class User
 
     //Funciones mías:
     public static function createFromArray(array $userData): User{
+        if (!key_exists('id', $userData)){
+            $userData['id'] = Uuid::uuid4()->toString();
+        }
         $usuario = new User(
-            UuidV4::uuid4(),
+            Uuid::fromString($userData['id']),
             $userData['username']
         );
         $usuario->setPassword($userData['password']);

@@ -1,11 +1,12 @@
 <?php
 $titulo = "Administración de Physics";
 $tituloSeccion = "Creación de usuarios";
+$rutaAgregar = "/user/create";
+$botonAgregar = "Agregar usuario";
 include_once DIRECTORIO_BACKEND . "/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND . "/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND . "/templates/partials/aside.admin.php";
 include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
-
 ?>
     <form method="post" action="/user"> <!--me lleva al método store-->
         <div class="mb-3">

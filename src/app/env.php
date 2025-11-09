@@ -11,3 +11,8 @@ const DIRECTORIO_IMG_BACKEND = "/app/views/backend/templates/img/";
 const DIRECTORIO_JS_BACKEND = "/app/views/backend/templates/js/";
 
 const DIRECTORIO_IMG_PHYSICS = "/app/uploaded/physics_img/";
+
+//Datos de conexión a la BD mariadb
+const URI_SERVIDOR = "mysql:host=mariadb;dbname=proyecto";
+const DATABASE_USERNAME = "roberto";
+const DATABASE_PASSWORD = "otrebor";

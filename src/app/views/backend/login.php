@@ -26,7 +26,7 @@
 <body>
 <div class="contenido">
     <nav>
-        <img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" />
+        <a href="/"><img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" /></a>
     </nav>
     <div class="caja">
         <h2>Iniciar sesión</h2>
@@ -48,14 +48,16 @@
                 <label for="remember">Recuérdame</label>
             </div>
             <div>
-                <p>¿Necesitas ayuda?</p>
+                <p>¿Problemas para iniciar sesión?</p>
             </div>
         </div>
         </form>
         <div class="subscripcion">
-            <p>¿Todavía sin Netflix? <span>Subscríbete ya.</span></p>
-            <p>Esta página utiliza Google reCAPTCHA para garantizar que no eres un robot.
-                <br/> <br/> La información recopilada por Google reCAPTCHA está sujeta a la <a href="https://policies.google.com/privacy">Política de Privacidad</a>
+            <p>¿No tienes cuenta? <span>Subscríbete ya.</span></p>
+            <a href="/register">
+            <button type="submit">Regístrarse</button>
+            </a>
+            <p><br/> <br/> La información recopilada por Google reCAPTCHA está sujeta a la <a href="https://policies.google.com/privacy">Política de Privacidad</a>
                 y las <a href="https://policies.google.com/terms">Condiciones de servicio</a> de
                 Google, y se utiliza para proporcionar, mantener y mejorar el servicio de reCAPTCHA, así como para fines generales de
                 seguridad (Google no la utiliza para publicidad personalizada). </p>
