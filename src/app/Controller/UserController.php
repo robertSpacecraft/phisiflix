@@ -39,7 +39,7 @@ class UserController implements ControlerInterface
             //Se ha producido un error en la validación del usuario
             return include_once DIRECTORIO_BACKEND . "createUser.php";
         } else {
-            $usuario = user::createFromArray($_POST);
+            $usuario = User::createFromArray($_POST);
             //Guardamos en la BD
             UserModel::saveUser($usuario);
             header('Location: /user');
@@ -49,7 +49,7 @@ class UserController implements ControlerInterface
         $usuario = new User(UuidV4::uuid4(),$_POST['username']);
 
         $usuario->setPassword($_POST['password'])->setEmail($_POST['email']);
-        var_dump($usuario);
+        exit;
     }
 
     public function edit($id){
@@ -79,7 +79,7 @@ class UserController implements ControlerInterface
         } else {
             $olduser = UserModel::getUserById($id);
             $newuser = User::editFromArray($olduser, $put);
-            var_dump($newuser);
+            //var_dump($newuser);
             UserModel::updateUser($newuser);
             http_response_code(201);
             return json_encode([

@@ -45,7 +45,9 @@ class UserModel
             return false;
         }
 
-        $sql = "INSERT INTO user values(:id, :username, :email, :password, STR_TO_DATE(:birthdate, '%Y-%c-%d'), :type)";
+        $sql = "INSERT INTO user (id, username, email, password, birthdate, type)
+            VALUES (:id, :username, :email, :password, STR_TO_DATE(:birthdate, '%Y-%c-%d'), :type)";
+
         $sentenciaPreparada = $conexion->prepare($sql);
         $sentenciaPreparada->bindValue("id", $user->getId());
         $sentenciaPreparada->bindValue("username", $user->getUsername());
@@ -173,7 +175,7 @@ class UserModel
         } catch (PDOException $e) {
             return false;
         }
-        $sql = "UPDATE user SET username =: username, email =: email, password =: password, birthdate = STR_TO_DATE(:birthdate, '%Y-%c-%d'), type=: type WHERE id = :id";
+        $sql = "UPDATE user SET username = :username, email = :email, password = :password, birthdate = STR_TO_DATE(:birthdate, '%Y-%c-%d'), type= :type WHERE id = :id";
         $sentenciaPreparada = $conexion->prepare($sql);
         $sentenciaPreparada->bindValue("id", $user->getId());
         $sentenciaPreparada->bindValue("username", $user->getUsername());

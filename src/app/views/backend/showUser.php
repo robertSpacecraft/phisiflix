@@ -7,8 +7,8 @@ include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
-
 ?>
+
     <div class="mb-3">
         <ul class="list-group">
             <li class="list-group-item"><?=$usuario->getUsername()?></li>
