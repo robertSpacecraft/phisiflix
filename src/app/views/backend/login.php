@@ -34,7 +34,7 @@
         <div class="form">
             <input
                 type="text"
-                placeholder="Correo electrónico o nombre de usuario"
+                placeholder="Nombre de usuario"
                 required
                 id="inputUsername" name="username"
             />

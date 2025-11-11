@@ -47,6 +47,9 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
                 >Advertising</option>
             </select>
         </div>
+        <div class="text-bg-danger" id="diverrores">
+
+        </div>
 
         <button type="submit" class="btn btn-primary" onclick="peticionPUT()">Modificar Usuario</button>
         <a href="/user/<?=$usuario->getId()?>" class="btn btn-primary"
@@ -60,6 +63,8 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
             let username = document.getElementById('inputUsername');
             let email = document.getElementById('inputEmail');
             let password = document.getElementById('inputPassword');
+            let birthdate = document.getElementById('inputBirthdate');
+            let type = document.getElementById('selectType');
 
             const myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
@@ -67,13 +72,15 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
             const raw = JSON.stringify({
             "username": username.value,
             "email": email.value,
-            "password": password.value
+            "password": password.value,
+            "birthdate": birthdate.value,
+            "type": type.value
             });
 
             const requestOptions = {
                 method: "PUT",
                 headers: myHeaders,
-                body: urlencoded,
+                body: raw,
                 redirect: "follow"
             };
 
@@ -81,6 +88,24 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
                 .then((response) => response.text())
                 .then((result) => console.log(result))
                 .catch((error) => console.error(error));
+        }
+        function redirecionarAInfoDeUsuario() {
+            if ('id' in JSON.parse(resultado)){
+                window.location.replace("http://localhost:8080/user/<?=$usuario->getId()?>");
+            } else {
+                const divErrores = document.getElementById('diverrores');
+                let divError = document.createElement('div');
+                divError.className="p-3 text-danger/emphasis bg-danger-subtle border border-danger-subtle rounded-3";
+                divErrores.appendChild(divError);
+                let error = document.createElement('p');
+                let errores = JSON.parse(resultado);
+                console.log(errores);
+                Object.keys(errores).forEach(clave => {
+                    error.textContent = `${clave}: ${errores[clave]}`;
+                    divError.appendChild(error);
+                });
+            }
+
         }
 
     </script>

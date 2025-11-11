@@ -3,19 +3,37 @@
     include_once "app/env.php";
     include_once "app/auxiliar/funciones-aux.php";
 
-    use Phroute\Phroute\RouteCollector;
+use App\Model\UserModel;
+use Phroute\Phroute\RouteCollector;
 
     use App\Controller\UserController;
     use App\Controller\PhysicController;
 
     session_start();
-
     //Crea una instancia del router
     $router = new RouteCollector();
 
     //Rutas Frontend
     $router->get('/', function () {
         include_once DIRECTORIO_FRONTEND."welcome.php";
+    });
+
+    $router->filter('auth', function(){
+        if (isset($_SESSION['user'])) {
+            return true;
+        } else {
+            header('Location:/login');
+            return false;
+        }
+    });
+
+    $router->filter('admin', function(){
+        if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()) {
+            return true;
+        } else {
+            $error = "Acceso denegado";
+            return include_once DIRECTORIO_FRONTEND."error.php";
+        }
     });
 
     $router->get('/register', function () {
@@ -44,12 +62,15 @@ $router->get('/user/{id}/edit', [UserController::class, 'edit']);
 
 
 //API REST CRUD
-$router->get('/user/create', [UserController::class, 'create']);
+$router->get('/user/create', [UserController::class, 'create']); //Esto no funciona: , ["before" => "admin"]
 $router->get('/user', [UserController::class, 'index']);
-$router->get('/user/{id}', [UserController::class, 'show']);
+$router->get('/user/{id}', [UserController::class, 'show']); //Esto no funciona: , ["before" => "auth"]
 $router->post('/user', [UserController::class, 'store']);
 $router->put('/user/{id}', [UserController::class, 'update']);
 $router->delete('/user/{id}', [UserController::class, 'destroy']);
+
+//Rutas de API
+$router->post('/api/user', [UserController::class, 'store']);
 
 //Physic
 $router->get('/admin/physic/create', function () {

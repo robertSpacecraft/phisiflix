@@ -11,17 +11,11 @@ use Ramsey\Uuid\Rfc4122\UuidV4;
 class UserController implements ControlerInterface
 {
     public function index(){
-        //Comprobar que es el usuario es de tipo administrador
-        if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()){
-            //Recuperar todos los usuarios de la base de datos
-            $usuarios = UserModel::getAllUsers();
+        //Recuperar todos los usuarios de la base de datos
+        $usuarios = UserModel::getAllUsers();
 
-            //Llamar a la vista que represente a estos usuarios
-            include_once DIRECTORIO_BACKEND . "showUsers.php";
-        } else {
-            $error = "No tiene permisos para acceder a este recurso";
-            include_once DIRECTORIO_FRONTEND . "error.php";
-        }
+        //Llamar a la vista que represente a estos usuarios
+        include_once DIRECTORIO_BACKEND . "showUsers.php";
 
     }
     public function show($id){
@@ -38,26 +32,20 @@ class UserController implements ControlerInterface
     }
 
     public function store(){
-        //Estos son los datos que recibo en la petición post
-        //var_dump($_POST);
-
         //tenemos que validar los datos
-        $resultado=User::validateUserCreation($_POST);
-        if (is_array($resultado)) {
-            //Se ha producido un erro en la validación del usuario
+        $errores=User::validateUserCreation($_POST);
+
+        if (is_array($errores)) {
+            //Se ha producido un error en la validación del usuario
             return include_once DIRECTORIO_BACKEND . "createUser.php";
         } else {
-            //No se ha producido ningún error y hay que almacenar el usuario
-            //Encriptamos el password del usuario
-            $resultado->setPassword(password_hash($resultado->getPassword(), PASSWORD_DEFAULT));
+            $usuario = user::createFromArray($_POST);
             //Guardamos en la BD
-            UserModel::saveUser($resultado);
-
+            UserModel::saveUser($usuario);
+            header('Location: /user');
         }
 
         //Tenemos que guardarlos en la BD
-        //UserModel::saveUser($usuario);
-
         $usuario = new User(UuidV4::uuid4(),$_POST['username']);
 
         $usuario->setPassword($_POST['password'])->setEmail($_POST['email']);
@@ -76,10 +64,32 @@ class UserController implements ControlerInterface
     public function update($id){
         //Obtenemos los datos de una petición tipo PUT
         $put = json_decode( file_get_contents("php://input"), true);
-
         $put['id']= $id;
-        $resultado=User::validateUserUpdate($put);
-        return "Se está intentado editar el usuario $id";
+
+        $resultado = User::validateUserUpdate($put);
+
+        if (is_array($resultado)) {
+            http_response_code(422);
+            return json_encode([
+                "error" => true,
+                "mensaje" => "Ha ocurrido un error en la verificación de los datos",
+                "data" => $resultado,
+                "code" => 422
+            ]);
+        } else {
+            $olduser = UserModel::getUserById($id);
+            $newuser = User::editFromArray($olduser, $put);
+            var_dump($newuser);
+            UserModel::updateUser($newuser);
+            http_response_code(201);
+            return json_encode([
+                "error" => false,
+                "mensaje" => "Datos actualizados correctamente",
+                "data" => $newuser,
+                "code" => 201
+            ]);
+        }
+        return json_encode($resultado);
     }
 
     public function destroy($id){
@@ -104,7 +114,7 @@ class UserController implements ControlerInterface
             $_SESSION['user']=$usuario;
             if ($usuario->getType() === UserType::ADMIN){
                 //include_once DIRECTORIO_BACKEND . "admin.php";
-                header('location: /user');
+                header('location: /admin/welcome');
             }else {
                 //include_once DIRECTORIO_FRONTEND . "welcome.php";
                 header('location: /');

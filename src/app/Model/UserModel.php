@@ -8,13 +8,12 @@ use mysql_xdevapi\TableUpdate;
 use PDO;
 use PDOException;
 use Ramsey\Uuid\Nonstandard\Uuid;
-
 class UserModel
 {
     public static function getAllUsers():?array{
         try {
             $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
-        $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             return null;
         }
@@ -63,7 +62,8 @@ class UserModel
     }
 
     public static function getUserById($id):?User{
-        try {$conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);$conexion = new PDO(URI_SERVIDOR, "roberto", "otrebor");
+        try {
+            $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             return false;
@@ -153,7 +153,7 @@ class UserModel
         } catch (PDOException $e) {
             return false;
         }
-        $sql = "TRUNCATE USER";
+        $sql = "TRUNCATE user";
         $sentenciaPreparada = $conexion->prepare($sql);
         $sentenciaPreparada->bindValue(1, $id);
         $sentenciaPreparada->execute();
@@ -166,8 +166,28 @@ class UserModel
     }
 
 
-    /* public static function saveUser(User $user): bool{
-         return true;
+    public static function updateUser(User $user): bool{
+        try {
+            $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            return false;
+        }
+        $sql = "UPDATE user SET username =: username, email =: email, password =: password, birthdate = STR_TO_DATE(:birthdate, '%Y-%c-%d'), type=: type WHERE id = :id";
+        $sentenciaPreparada = $conexion->prepare($sql);
+        $sentenciaPreparada->bindValue("id", $user->getId());
+        $sentenciaPreparada->bindValue("username", $user->getUsername());
+        $sentenciaPreparada->bindValue("email", $user->getEmail());
+        $sentenciaPreparada->bindValue("password", $user->getPassword());
+        $sentenciaPreparada->bindValue("birthdate", $user->getBirthdate()->format("Y-m-d"));
+        $sentenciaPreparada->bindValue("type", $user->getType()->name);
+
+        $sentenciaPreparada->execute();
+
+        if ($sentenciaPreparada->rowCount() > 0) {
+            return true;
+        }
+        return false;
      }
-    */
+
 }

@@ -121,6 +121,7 @@ class User
     public static function createFromArray(array $userData): User{
         if (!key_exists('id', $userData)){
             $userData['id'] = Uuid::uuid4()->toString();
+            $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
         }
         $usuario = new User(
             Uuid::fromString($userData['id']),
@@ -133,14 +134,16 @@ class User
         return $usuario;
     }
 
-    public static function editFromArray(array $userData): User{
-        //Leer de la BD el usuario y modificarlo
-        $usuario = UserModel::getUserById($userData['id']);
+    public static function editFromArray(User $usuario, array $userData): User{
 
         $usuario->setUsername($userData['username']??$usuario->getUsername());
-        $usuario->setPassword($userData['password']??$usuario->getPassword());
+
+        if (isset($userData['password'])){
+            $usuario->setPassword(password_hash($userData['password'], PASSWORD_DEFAULT));
+        }
+
         $usuario->setEmail($userData['email']??$usuario->getEmail());
-        $usuario->setBirthdate(DateTime::createFromFormat('Y-m-d', $userData['birthdate'])??$usuario->getBirthdate());
+        $usuario->setBirthdate(DateTime::createFromFormat('Y-m-d', $userData['birthdate'])??$usuario->getBirthdate()->format('Y-m-d'));
         $usuario->setType(UserType::createFromString($userData['type']??$usuario->getType()->name));
 
         return $usuario;
@@ -148,8 +151,7 @@ class User
     }
 
 
-    public static function validateUserCreation(array $userData):array|user
-    {
+    public static function validateUserCreation(array $userData):array|true{
         try {
             v::key('username', v::stringType()->length(3, 60))
                 ->key('email', v::email())
@@ -161,11 +163,11 @@ class User
         } catch (NestedValidationException $errores) {
             return $errores->getMessages();
         }
-
-        return User::createFromArray($userData);
+        //El usuario ha superado el proceso de validación
+        return true;
     }
 
-        public static function validateUserUpdate(array $userData):array|User{
+        public static function validateUserUpdate(array $userData):array|true{
             try{
                 v::key('id', v::uuid()->notEmpty());
                 v::key('username', v::stringType()->length(3, 60), false)
@@ -179,7 +181,7 @@ class User
                 return $errores->getMessages();
             }
 
-            return User::editFromArray($userData);
+            return true;
         }
 
         //Comprueba si el usuario de la sesión es un ADMIN
