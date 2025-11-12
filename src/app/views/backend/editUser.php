@@ -3,7 +3,7 @@
 use App\Enum\UserType;
 
 $titulo = "Administración de Physics";
-$tituloSeccion = "Datos del usuario " . $usuario->getUsername();
+$tituloSeccion = "Datos del usuario " . $physic->getUsername();
 $rutaAgregar = "/user/create";
 $botonAgregar = "Agregar usuario";
 include_once DIRECTORIO_BACKEND . "/templates/partials/head.admin.php";
@@ -15,47 +15,47 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
         <div class="mb-3">
             <label for="inputUsername" class="form-label">Nombre del Usuario</label>
             <input type="text" class="form-control" id="inputUsername" name="username"
-                   value="<?= $usuario->getUsername() ?>">
+                   value="<?= $physic->getUsername() ?>">
         </div>
         <div class="mb-3">
             <label for="inputEmail" class="form-label">Correo Electrónico</label>
-            <input type="email" class="form-control" id="inputEmail" name="email" value="<?= $usuario->getEmail() ?>">
+            <input type="email" class="form-control" id="inputEmail" name="email" value="<?= $physic->getEmail() ?>">
         </div>
         <div class="mb-3">
             <label for="inputPassword" class="form-label">Contraseña</label>
             <input type="password" class="form-control" name="password" id="inputPassword"
-                   value="<?= $usuario->getPassword() ?>">
+                   value="<?= $physic->getPassword() ?>">
         </div>
 
         <div class="mb-3">
             <label for="inputBirthdate" class="form-label">Fecha de nacimiento</label>
             <input type="date" class="form-control" id="inputBirthdate" name="birthdate"
-                   value="<?= $usuario->getBirthdate()->format('Y-m-d') ?>">
+                   value="<?= $physic->getBirthdate()->format('Y-m-d') ?>">
 
         </div>
         <div class="mb-3">
             <select class="form-select" id="selectType" name="type">
                 <option>Seleccione el tipo de usuario</option>
                 <option value="admin"
-                        <?php if ($usuario->getType() === UserType::ADMIN) {
+                        <?php if ($physic->getType() === UserType::ADMIN) {
                             echo "selected";
                         } ?>
                 >Admin
                 </option>
                 <option value="editor"
-                        <?php if ($usuario->getType() === UserType::EDITOR) {
+                        <?php if ($physic->getType() === UserType::EDITOR) {
                             echo "selected";
                         } ?>
                 >Editor
                 </option>
                 <option value="regular"
-                        <?php if ($usuario->getType() === UserType::REGULAR) {
+                        <?php if ($physic->getType() === UserType::REGULAR) {
                             echo "selected";
                         } ?>
                 >Regular
                 </option>
                 <option value="advertising"
-                        <?php if ($usuario->getType() === UserType::ADVERTISING) {
+                        <?php if ($physic->getType() === UserType::ADVERTISING) {
                             echo "selected";
                         } ?>
                 >Advertising
@@ -68,7 +68,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
         <div id="mensajes"></div>
 
         <button type="button" class="btn btn-primary" onclick="peticionPUT()">Modificar Usuario</button>
-        <a href="/user/<?= $usuario->getId() ?>" class="btn btn-primary"
+        <a href="/user/<?= $physic->getId() ?>" class="btn btn-primary"
            onclick="return confirm('Esta acción cancelará los cambios ¿deseas continuar?')">
             Cancelar
         </a>
@@ -85,7 +85,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
             const payload = {username, email, birthdate, type};
             if (password.trim() !== "") payload.password = password;
 
-            fetch("/user/<?=htmlspecialchars($usuario->getId(), ENT_QUOTES)?>", {
+            fetch("/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>", {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(payload)
@@ -101,7 +101,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
                         divMensajes.innerHTML = `
                             <div class="alert alert-success d-inline-flex align-items-center gap-2" role="alert" style="width:auto; display:inline-flex;">
                             <span>Usuario modificado correctamente.</span>
-                            <a class="btn btn-sm btn-outline-dark" href="/user/<?=htmlspecialchars($usuario->getId(), ENT_QUOTES)?>">Volver</a>
+                            <a class="btn btn-sm btn-outline-dark" href="/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>">Volver</a>
                             </div>
                             `;
                         //Resalta el mensaje.

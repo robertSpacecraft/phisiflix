@@ -12,7 +12,7 @@ class Physic
     private string $nombre;
     private string $apellido;
     private PhysicGenero $genero;
-    private string $lugar_nac; //Cambiar por nacionalidad
+    private string $nacionalidad; //Cambiar por nacionalidad
     private string $lugar_def;
     private string $descripcion;
     private string $etiqueta; //palabras clave (relatividad, gravedad, radiación, etc)
@@ -23,6 +23,8 @@ class Physic
     public function __construct(string $nombre) {
         $this->id = Uuid::uuid4();
         $this->nombre = $nombre;
+        $this->type = PhysicType::PERSONA;
+        $this->genero = PhysicGenero::NOT_DEFINED;
     }
 
     public function getId(): UuidInterface
@@ -69,14 +71,14 @@ class Physic
         return $this;
     }
 
-    public function getLugarNac(): string
+    public function getNacionalidad(): string
     {
-        return $this->lugar_nac;
+        return $this->nacionalidad;
     }
 
-    public function setLugarNac(string $lugar_nac): Physic
+    public function setNacionalidad(string $nacionalidad): Physic
     {
-        $this->lugar_nac = $lugar_nac;
+        $this->nacionalidad = $nacionalidad;
         return $this;
     }
 
@@ -146,5 +148,24 @@ class Physic
         return $this;
     }
 
+    public static function createFromArray(array $physicData): Physic{
+        if (!key_exists('id', $physicData)){
+            $physicData['id'] = Uuid::uuid4()->toString();
+        }
+        $physic = new Physic(
+            Uuid::uuid4()->toString(),
+            $physicData['nombre'],
+        );
+        $physic->setApellido($physicData['apellido']);
+        $physic->setGenero(PhysicGenero::createFromString($physicData['genero']));
+        $physic->setNacionalidad($physicData['nacionalidad']);
+        $physic->setLugarDef($physicData['lugar_def']);
+        $physic->setDescripcion($physicData['descripcion']);
+        $physic->setEtiqueta($physicData['etiqueta']);
+        $physic->setType(PhysicType::createFromString($physicData['type']));
+        $physic->setFoto($physicData['foto']);
+
+        return $physic;
+    }
 
 }
