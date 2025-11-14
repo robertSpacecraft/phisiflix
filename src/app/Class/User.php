@@ -12,7 +12,7 @@ use Respect\Validation\Exceptions\NestedValidationException;
 use Respect\Validation\Rules\StringType;
 use Respect\Validation\Validator as v;
 
-class User
+class User implements \JsonSerializable
 {
     private UuidInterface $id;
     private string $username;
@@ -193,4 +193,13 @@ class User
         }
 
 
+    public function jsonSerialize(): mixed
+    {
+        return [
+            "Uuid"=>$this->id,
+            "Username"=>$this->username,
+            "Email"=>$this->email,
+            "birthdate"=>$this->birthdate,
+        ];
+    }
 }

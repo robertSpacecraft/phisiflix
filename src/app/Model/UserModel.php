@@ -8,6 +8,8 @@ use mysql_xdevapi\TableUpdate;
 use PDO;
 use PDOException;
 use Ramsey\Uuid\Nonstandard\Uuid;
+
+include_once "app/auxiliar/funciones-aux.php";
 class UserModel
 {
     public static function getAllUsers():?array{

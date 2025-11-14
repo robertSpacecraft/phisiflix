@@ -19,10 +19,8 @@ use Phroute\Phroute\RouteCollector;
     });
 
     $router->filter('auth', function(){
-        if (isset($_SESSION['user'])) {
-            return true;
-        } else {
-            header('Location:/login');
+        if (!isset($_SESSION['user']) && !$_SESSION['user']->isAdmin()) {
+            header('Location:/error');
             return false;
         }
     });
@@ -44,11 +42,9 @@ use Phroute\Phroute\RouteCollector;
     $router->get('/admin', function () {
         include_once DIRECTORIO_BACKEND . "admin.php";
     });
+
     $router->get('/admin/welcome', function () {
         include_once DIRECTORIO_BACKEND . "admin-welcome.php";
-    });
-    $router->get('/admin/physics', function () {
-        include_once DIRECTORIO_BACKEND . "admin-physics.php";
     });
 
     $router->get('/login', function () {

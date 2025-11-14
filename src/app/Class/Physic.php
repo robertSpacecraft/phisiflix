@@ -3,10 +3,11 @@
 namespace App\Class;
 use App\Enum\PhysicGenero;
 use App\Enum\PhysicType;
+use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class Physic
+class Physic implements JsonSerializable
 {
     private UuidInterface $id;
     private string $nombre;
@@ -153,9 +154,9 @@ class Physic
             $physicData['id'] = Uuid::uuid4()->toString();
         }
         $physic = new Physic(
-            Uuid::uuid4()->toString(),
             $physicData['nombre'],
         );
+        //$physic->setNombre($physicData['nombre']);
         $physic->setApellido($physicData['apellido']);
         $physic->setGenero(PhysicGenero::createFromString($physicData['genero']));
         $physic->setNacionalidad($physicData['nacionalidad']);
@@ -168,4 +169,18 @@ class Physic
         return $physic;
     }
 
+    public function jsonSerialize(): mixed{
+        return [
+            "id" => $this->id,
+            "nombre" => $this->nombre,
+            "apellido" => $this->apellido,
+            "genero" => $this->genero,
+            "nacionalidad" => $this->nacionalidad,
+            "lugar_def" => $this->lugar_def,
+            "descripcion" => $this->descripcion,
+            "etiqueta" => $this->etiqueta,
+            "foto" => $this->foto,
+            "hito" => $this->hito,
+        ];
+    }
 }

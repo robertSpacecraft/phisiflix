@@ -16,8 +16,8 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
 
 
 ?>
-    <div class="card m-1" style="width: 18rem;">
-        <img src="<?=DIRECTORIO_IMG_BACKEND?>userGeneric.png" class="card-img-top" alt="...">
+    <div class="card m-1" style="width: 15rem;">
+        <img src="<?=DIRECTORIO_IMG_PHYSICS?><?=$physic->getFoto()?>" class="card-img-top" alt="<?=$physic->getNombre()?>">
         <div class="card-body">
             <h5 class="card-title"><?=$physic->getNombre()?></h5>
             <p class="card-text"><?=$physic->getApellido()?></p>
@@ -27,13 +27,13 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
             <p class="card-text"><?=$physic->getDescripcion()?></p>
             <p class="card-text"><?=$physic->getEtiqueta()?></p>
             <p class="card-text"><?=$physic->getType()->name?></p>
-            <a href="/user/<?=$physic->getId()?>" class="btn btn-primary">Más detalles</a>
+            <a href="/physic/<?=$physic->getId()?>" class="btn btn-primary">Más detalles</a>
         </div>
     </div>
         <?php }
     }else { ?>
         <div>
-            <p>No hay usuarios disponibles</p>
+            <p>No hay físicos disponibles</p>
         </div>
     <?php }
         ?>

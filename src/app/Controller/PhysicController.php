@@ -10,7 +10,7 @@ use Ramsey\Uuid\Rfc4122\UuidV4;
 class PhysicController implements ControlerInterface
 {
     public function index(){
-        //Recuperar todos los usuarios de la base de datos
+        //Recuperar todos los physics de la base de datos
         $physics = PhysicModel::getAllPhysics();
 
         //Llamar a la vista que represente a estos usuarios
@@ -19,7 +19,11 @@ class PhysicController implements ControlerInterface
 
     public function show($id)
     {
-        // TODO: Implement show() method.
+        //Recupero los datos de un physic de la BD
+        $physic = PhysicModel::getPhysicById($id);
+
+        //Muestro el resultado en la vista
+        include_once DIRECTORIO_BACKEND . "showPhysic.php";
     }
 
     public function store()

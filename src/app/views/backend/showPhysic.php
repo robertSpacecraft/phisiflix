@@ -1,8 +1,8 @@
 <?php
 $titulo = "Administración de Physics";
-$tituloSeccion = "Datos del usuario " .$usuario->getUsername();
-$rutaAgregar = "/user/create";
-$botonAgregar = "Agregar usuario";
+$tituloSeccion = "Datos del físico" .$physic->getNombre();
+$rutaAgregar = "/physic/create";
+$botonAgregar = "Agregar Físico";
 include_once DIRECTORIO_BACKEND."/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/header.admin.php";
 include_once DIRECTORIO_BACKEND."/templates/partials/aside.admin.php";
@@ -11,18 +11,23 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
 
     <div class="mb-3">
         <ul class="list-group">
-            <li class="list-group-item"><?=$usuario->getUsername()?></li>
-            <li class="list-group-item"><?=$usuario->getEmail()?></li>
-            <li class="list-group-item"><?=$usuario->getPassword()?></li>
-            <li class="list-group-item"><?=$usuario->getType()->name?></li>
+            <li class="list-group-item"><?=$physic->getFoto()?></li>
+            <li class="list-group-item"><?=$physic->getNombre()?></li>
+            <li class="list-group-item"><?=$physic->getApellido()?></li>
+            <li class="list-group-item"><?=$physic->getGenero()->name?></li>
+            <li class="list-group-item"><?=$physic->getNacionalidad()?></li>
+            <li class="list-group-item"><?=$physic->getLugarDef()?></li>
+            <li class="list-group-item"><?=$physic->getDescripcion()?></li>
+            <li class="list-group-item"><?=$physic->getEtiqueta()?></li>
+            <li class="list-group-item"><?=$physic->getType()->name?></li>
         </ul>
     </div>
     <div class="mb-3">
         <div class="d-grid gap-2 d-md-block">
-            <button class="btn btn-outline-secondary" type="button" onclick="irAModificarUsuario()">Modificar Usuario</button>
-            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmacionBorrarModal">Borrar Usuario</button>
+            <button class="btn btn-outline-secondary" type="button" onclick="irAModificarPhysic()">Modificar Físico</button>
+            <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#confirmacionBorrarModal">Borrar Físico</button>
             <div>
-                <a href="/user" class="btn-primary">Volver</a>
+                <a href="/physic" class="btn-primary">Volver</a>
             </div>
         </div>
     </div>
@@ -44,12 +49,12 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
     </div>
 
     <script>
-        function irAModificarUsuario(){
-            window.location.replace("http://localhost:8080/user/<?=$usuario->getId()?>/edit");
+        function irAModificarPhysic(){
+            window.location.replace("http://localhost:8080/user/<?=$physic->getId()?>/edit");
         }
 
         function irATodosLosUsuarios(){
-            window.location.replace("http://localhost:8080/user");
+            window.location.replace("http://localhost:8080/physic");
         }
 
         function peticionDelete(){
@@ -61,9 +66,9 @@ include_once DIRECTORIO_BACKEND."/templates/partials/main.header.admin.php";
                 redirect: "follow"
             };
 
-            fetch("http://localhost:8080/user/<?=$usuario->getId()?>", requestOptions)
+            fetch("http://localhost:8080/physic/<?=$physic->getId()?>", requestOptions)
                 .then((response) => response.text())
-                .then((result) => irATodosLosUsuarios())
+                .then((result) => irATodosLosPhysics())
                 .catch((error) => console.error(error));
         }
     </script>

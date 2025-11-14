@@ -31,4 +31,27 @@ class PhysicModel
         }
         return null;
     }
+
+    public static function getPhysicById($id):?Physic{
+        try {
+            $conexion = new PDO(URI_SERVIDOR);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            return null;
+        }
+
+            $sql = "SELECT * FROM physic WHERE id = :id";
+            $sentenciaPreparada = $conexion->prepare($sql);
+            $sentenciaPreparada->bindValue(1, $id);
+            $sentenciaPreparada->execute();
+
+            $resultado = $sentenciaPreparada->fetch(PDO::FETCH_ASSOC);
+
+            if ($resultado){
+                $physic = Physic::createFromArray($resultado);
+                return $physic;
+            } else{
+                return null;
+            }
+    }
 }
