@@ -33,10 +33,16 @@ class PhysicController implements ControlerInterface
         uploadImg('foto');
         return true;
     }
+    public function edit($id){
+        //Busco en la BD el phisic
+        $physic = PhysicModel::getPhysicById($id);
 
-    public function update($id)
-    {
-        // TODO: Implement update() method.
+        //Muestro la vista de edición de Physics
+        include_once DIRECTORIO_BACKEND . "editPhysic.php";
+    }
+
+    public function update($id){
+
     }
 
     public function destroy($id)

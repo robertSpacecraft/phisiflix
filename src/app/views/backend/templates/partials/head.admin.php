@@ -10,10 +10,8 @@
     />
     <meta name="generator" content="Astro v5.13.2" />
     <title><?=$titulo?></title>
-    <link
-        rel="canonical"
-        href="https://getbootstrap.com/docs/5.3/examples/dashboard/"
-    />
+    <link rel="icon" href="<?=DIRECTORIO_IMG_FRONTEND?>favicon.png">
+
     <script src="<?=DIRECTORIO_JS_BACKEND?>color-modes.js"></script>
     <link href="<?=DIRECTORIO_CSS_BACKEND?>bootstrap.min.css" rel="stylesheet" />
     <meta name="theme-color" content="#712cf9" />

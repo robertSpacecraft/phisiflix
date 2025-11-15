@@ -19,7 +19,7 @@ use Phroute\Phroute\RouteCollector;
     });
 
     $router->filter('auth', function(){
-        if (!isset($_SESSION['user']) && !$_SESSION['user']->isAdmin()) {
+        if (!isset($_SESSION['user'])) {
             header('Location:/error');
             return false;
         }
@@ -27,8 +27,6 @@ use Phroute\Phroute\RouteCollector;
 
     $router->filter('admin', function(){
         if (isset($_SESSION['user']) && $_SESSION['user']->isAdmin()) {
-            return true;
-        } else {
             $error = "Acceso denegado";
             return include_once DIRECTORIO_FRONTEND."error.php";
         }
@@ -75,6 +73,8 @@ $router->get('/admin/physic/create', function () {
 $router->get('/admin/physic/{$id}/edit', function ($id) {
     include_once DIRECTORIO_BACKEND."edit-Physic.php";
 });
+
+$router->get('physic/{id}/edit', [PhysicController::class, 'edit']);
 
 $router->get('/physic', [PhysicController::class, 'index']);
 $router->get('/physic/{id}', [PhysicController::class, 'show']);

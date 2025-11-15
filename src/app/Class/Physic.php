@@ -6,6 +6,8 @@ use App\Enum\PhysicType;
 use JsonSerializable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Respect\Validation\Validator as v;
+use Respect\Validation\Exceptions\NestedValidationException;
 
 class Physic implements JsonSerializable
 {
@@ -22,7 +24,6 @@ class Physic implements JsonSerializable
     private array $hito = [];
 
     public function __construct(string $nombre) {
-        $this->id = Uuid::uuid4();
         $this->nombre = $nombre;
         $this->type = PhysicType::PERSONA;
         $this->genero = PhysicGenero::NOT_DEFINED;
@@ -150,12 +151,13 @@ class Physic implements JsonSerializable
     }
 
     public static function createFromArray(array $physicData): Physic{
-        if (!key_exists('id', $physicData)){
+        if (!isset($physicData['id'])) {
             $physicData['id'] = Uuid::uuid4()->toString();
         }
         $physic = new Physic(
             $physicData['nombre'],
         );
+        $physic->setId(Uuid::fromString($physicData['id']));
         //$physic->setNombre($physicData['nombre']);
         $physic->setApellido($physicData['apellido']);
         $physic->setGenero(PhysicGenero::createFromString($physicData['genero']));
@@ -167,6 +169,25 @@ class Physic implements JsonSerializable
         $physic->setFoto($physicData['foto']);
 
         return $physic;
+    }
+
+    public static function validatePhysicCreation(array $physicData):array|true{
+        try {
+            v::key('nombre', v::stringType()->length(3, 32))
+                ->key('apellido', v::stringType()->length(3, 32))
+                ->key('genero', v::in(['MASCULINO', 'FEMENINO', 'NO_APLICA', 'NOT_DEFINED']))
+                ->key('nacionalidad', v::stringType()->length(2, 32))
+                ->key('lugar_def', v::stringType()->length(2, 32))
+                ->key('descripcion', v::stringType()->length(3, 512))
+                ->key('etiqueta', v::stringType()->length(3, 128))
+                ->key('tipo', v::in(['PERSONA', 'INSTITUCION', 'INSTRUMENTO', 'ESPERIMENTO', 'PUBLICACION']))
+                ->key('foto', v::regex('/^[a-z]+[A-Z][a-z]+\.png$/'))
+            ->assert($physicData);
+
+        } catch(NestedValidationException $errores){
+            return $errores->getMessages();
+        }
+        return true;
     }
 
     public function jsonSerialize(): mixed{

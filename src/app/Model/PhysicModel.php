@@ -34,13 +34,13 @@ class PhysicModel
 
     public static function getPhysicById($id):?Physic{
         try {
-            $conexion = new PDO(URI_SERVIDOR);
+            $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             return null;
         }
 
-            $sql = "SELECT * FROM physic WHERE id = :id";
+            $sql = "SELECT * FROM physic WHERE id = ?";
             $sentenciaPreparada = $conexion->prepare($sql);
             $sentenciaPreparada->bindValue(1, $id);
             $sentenciaPreparada->execute();

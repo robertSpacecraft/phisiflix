@@ -1,9 +1,21 @@
 <?php
 
-use App\Enum\UserType;
+
+
+
+
+
+//ESTO ES LA COPIA DE EDITUSER FALTA MODIFICAR EL SCRIPT DE JAVASCRIPT
+
+
+
+
+
+use App\Enum\PhysicGenero;
+use App\Enum\PhysicType;
 
 $titulo = "Administración de Physics";
-$tituloSeccion = "Datos del usuario " . $usuario->getUsername();
+$tituloSeccion = "Datos del físico " . $physic->getNombre(). " " . $physic->getApellido();
 $rutaAgregar = "/user/create";
 $botonAgregar = "Agregar usuario";
 include_once DIRECTORIO_BACKEND . "/templates/partials/head.admin.php";
@@ -13,67 +25,113 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
 ?>
     <form>
         <div class="mb-3">
-            <label for="inputUsername" class="form-label">Nombre del Usuario</label>
-            <input type="text" class="form-control" id="inputUsername" name="username"
-                   value="<?= $usuario->getUsername() ?>">
+            <label for="inputNombre" class="form-label">Nombre del físico</label>
+            <input type="text" class="form-control" id="inputNombre" name="nombre"
+                   value="<?= $physic->getNombre() ?>">
         </div>
         <div class="mb-3">
-            <label for="inputEmail" class="form-label">Correo Electrónico</label>
-            <input type="email" class="form-control" id="inputEmail" name="email" value="<?= $usuario->getEmail() ?>">
+            <label for="inputApellido" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="inputApellido" name="apellido" value="<?= $physic->getApellido() ?>">
         </div>
         <div class="mb-3">
-            <label for="inputPassword" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" name="password" id="inputPassword"
-                   value="<?= $usuario->getPassword() ?>">
-        </div>
-
-        <div class="mb-3">
-            <label for="inputBirthdate" class="form-label">Fecha de nacimiento</label>
-            <input type="date" class="form-control" id="inputBirthdate" name="birthdate"
-                   value="<?= $usuario->getBirthdate()->format('Y-m-d') ?>">
-
-        </div>
-        <div class="mb-3">
-            <select class="form-select" id="selectType" name="type">
-                <option>Seleccione el tipo de usuario</option>
-                <option value="admin"
-                        <?php if ($usuario->getType() === UserType::ADMIN) {
+            <label for="selectGenero" class="form-label">Género</label>
+            <select class="form-select" id="selectGenero" name="genero">
+                <option>Seleccione el género</option>
+                <option value="masculino"
+                        <?php if ($physic->getGenero() === PhysicGenero::MASCULINO) {
                             echo "selected";
                         } ?>
-                >Admin
+                >Masculino
                 </option>
-                <option value="editor"
-                        <?php if ($usuario->getType() === UserType::EDITOR) {
+                <option value="femenino"
+                        <?php if ($physic->getGenero() === PhysicGenero::FEMENINO) {
                             echo "selected";
                         } ?>
-                >Editor
+                >Femenino
                 </option>
-                <option value="regular"
-                        <?php if ($usuario->getType() === UserType::REGULAR) {
+                <option value="noAplica"
+                        <?php if ($physic->getGenero() === PhysicGenero::NO_APLICA) {
                             echo "selected";
                         } ?>
-                >Regular
+                >No Aplica
                 </option>
-                <option value="advertising"
-                        <?php if ($usuario->getType() === UserType::ADVERTISING) {
+                <option value="notDefined"
+                        <?php if ($physic->getGenero() === PhysicGenero::NOT_DEFINED) {
                             echo "selected";
                         } ?>
-                >Advertising
+                >Not Defined
                 </option>
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="inputNacionalidad" class="form-label">Nacionalidad</label>
+            <input type="text" class="form-control" id="inputNacionalidad" name="nacionalidad" value="<?= $physic->getNacionalidad() ?>">
+        </div>
+        <div class="mb-3">
+            <label for="inputLugDef" class="form-label">Lugar de defunción</label>
+            <input type="text" class="form-control" id="inputLugDef" name="lugarDeDefuncion" value="<?= $physic->getLugDefuncion() ?>">
+        </div>
+        <div class="mb-3">
+            <label for="inputDescripcion" class="form-label">Descripción</label>
+            <input type="text" class="form-control" id="inputDescripcion" name="descripcion" value="<?= $physic->getDescripcion() ?>">
+        </div>
+        <div class="mb-3">
+            <label for="inputEtiquetas" class="form-label">Etiquetas</label>
+            <input type="text" class="form-control" id="inputEtiquetas" name="etiquetas" value="<?= $physic->getEtiquetas() ?>">
+        </div>
+        <div class="mb-3">
+            <label for="selectTipo" class="form-label">Tipo</label>
+            <select class="form-select" id="selectTipo" name="SelectTipo">
+                <option>Seleccione el tipo de entidad</option>
+                <option value="admin"
+                        <?php if ($physic->getType() === PhysicType::PERSONA) {
+                            echo "selected";
+                        } ?>
+                >Persona
+                </option>
+                <option value="editor"
+                        <?php if ($physic->getType() === PhysicType::INSTITUCION) {
+                            echo "selected";
+                        } ?>
+                >Institución
+                </option>
+                <option value="regular"
+                        <?php if ($physic->getType() === PhysicType::INSTRUMENTO) {
+                            echo "selected";
+                        } ?>
+                >Instrumento
+                </option>
+                <option value="advertising"
+                        <?php if ($physic->getType() === PhysicType::PUBLICACION) {
+                            echo "selected";
+                        } ?>
+                >Publicación
+                </option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="inputImagen" class="form-label">Nombre de la Imagen</label>
+            <input type="text" class="form-control" id="inputImagen" name="nombreImagen" value="<?= $physic->getImagen()?>">
+        </div>
+
         <div class="text-bg-danger" id="diverrores">
 
         </div>
         <div id="mensajes"></div>
 
-        <button type="button" class="btn btn-primary" onclick="peticionPUT()">Modificar Usuario</button>
-        <a href="/user/<?= $usuario->getId() ?>" class="btn btn-primary"
+        <button type="button" class="btn btn-primary" onclick="peticionPUT()">Modificar Físico</button>
+        <a href="/physic/<?= $physic->getId() ?>" class="btn btn-primary"
            onclick="return confirm('Esta acción cancelará los cambios ¿deseas continuar?')">
             Cancelar
         </a>
 
     </form>
+
+
+
+
+
     <script>
         function peticionPUT() {
             const username = document.getElementById('inputUsername').value;
@@ -85,7 +143,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
             const payload = {username, email, birthdate, type};
             if (password.trim() !== "") payload.password = password;
 
-            fetch("/user/<?=htmlspecialchars($usuario->getId(), ENT_QUOTES)?>", {
+            fetch("/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>", {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(payload)
@@ -101,7 +159,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
                         divMensajes.innerHTML = `
                             <div class="alert alert-success d-inline-flex align-items-center gap-2" role="alert" style="width:auto; display:inline-flex;">
                             <span>Usuario modificado correctamente.</span>
-                            <a class="btn btn-sm btn-outline-dark" href="/user/<?=htmlspecialchars($usuario->getId(), ENT_QUOTES)?>">Volver</a>
+                            <a class="btn btn-sm btn-outline-dark" href="/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>">Volver</a>
                             </div>
                             `;
                         //Resalta el mensaje.
