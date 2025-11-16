@@ -171,18 +171,32 @@ class Physic implements JsonSerializable
         return $physic;
     }
 
+    public static function editFromArray(Physic $physic, array $physicData): Physic{
+        $physic->setNombre($physicData['nombre']??$physic->getNombre());
+        $physic->setApellido($physicData['apellido']??$physic->getApellido());
+        $physic->setGenero(PhysicGenero::createFromString($physicData['genero']??$physic->getGenero()));
+        $physic->setNacionalidad($physicData['nacionalidad']??$physic->getNacionalidad());
+        $physic->setLugarDef($physicData['lugar_def']??$physic->getLugarDef());
+        $physic->setDescripcion($physicData['descripcion']??$physic->getDescripcion());
+        $physic->setEtiqueta($physicData['etiqueta']??$physic->getEtiqueta());
+        $physic->setType(PhysicType::createFromString($physicData['type']??$physic->getType()));
+        $physic->setFoto($physicData['foto']??$physic->getFoto());
+        return $physic;
+    }
+
     public static function validatePhysicCreation(array $physicData):array|true{
         try {
             v::key('nombre', v::stringType()->length(3, 32))
                 ->key('apellido', v::stringType()->length(3, 32))
                 ->key('genero', v::in(['MASCULINO', 'FEMENINO', 'NO_APLICA', 'NOT_DEFINED']))
                 ->key('nacionalidad', v::stringType()->length(2, 32))
-                ->key('lugar_def', v::stringType()->length(2, 32))
+                ->key('lugar_def', v::stringType()->length(2, 64))
                 ->key('descripcion', v::stringType()->length(3, 512))
                 ->key('etiqueta', v::stringType()->length(3, 128))
-                ->key('tipo', v::in(['PERSONA', 'INSTITUCION', 'INSTRUMENTO', 'ESPERIMENTO', 'PUBLICACION']))
-                ->key('foto', v::regex('/^[a-z]+[A-Z][a-z]+\.png$/'))
-            ->assert($physicData);
+                ->key('type', v::in(['PERSONA', 'INSTITUCION', 'INSTRUMENTO', 'ESPERIMENTO', 'PUBLICACION']))
+                ->key('foto', v::regex('/\.png$/i'))
+
+                ->assert($physicData);
 
         } catch(NestedValidationException $errores){
             return $errores->getMessages();
@@ -200,6 +214,7 @@ class Physic implements JsonSerializable
             "lugar_def" => $this->lugar_def,
             "descripcion" => $this->descripcion,
             "etiqueta" => $this->etiqueta,
+            "type" => $this->type,
             "foto" => $this->foto,
             "hito" => $this->hito,
         ];

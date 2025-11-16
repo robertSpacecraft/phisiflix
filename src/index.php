@@ -70,16 +70,13 @@ $router->post('/api/user', [UserController::class, 'store']);
 $router->get('/admin/physic/create', function () {
     include_once DIRECTORIO_BACKEND."add-Physic.php";
 });
-$router->get('/admin/physic/{$id}/edit', function ($id) {
-    include_once DIRECTORIO_BACKEND."edit-Physic.php";
-});
 
-$router->get('physic/{id}/edit', [PhysicController::class, 'edit']);
+$router->get('/physic/{id}/edit', [PhysicController::class, 'edit']);
 
 $router->get('/physic', [PhysicController::class, 'index']);
 $router->get('/physic/{id}', [PhysicController::class, 'show']);
 $router->post('/physic', [PhysicController::class, 'store']);
-$router->put('/physic/{id}', [PhysicController::class, 'update']);
+$router->put('/physic/{id}', [PhysicController::class, 'update']); //La vista editPhysic.php llama desde el script a este endpoint
 $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
 
 

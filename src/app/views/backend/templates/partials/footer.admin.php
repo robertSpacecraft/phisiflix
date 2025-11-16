@@ -11,7 +11,6 @@
     crossorigin="anonymous"
     class="astro-vvvwv3sm"
 ></script>
-<script src="<?=DIRECTORIO_CSS_BACKEND?>dashboard.js" class="astro-vvvwv3sm"></script>
 </body>
 </html>
 

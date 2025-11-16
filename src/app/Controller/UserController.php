@@ -31,26 +31,21 @@ class UserController implements ControlerInterface
         include_once DIRECTORIO_BACKEND . "createUser.php";
     }
 
-    public function store(){
-        //tenemos que validar los datos
-        $errores=User::validateUserCreation($_POST);
-
+    public function store() {
+        //Valido los datos que me llegan
+        $errores = User::validateUserCreation($_POST);
         if (is_array($errores)) {
-            //Se ha producido un error en la validación del usuario
             return include_once DIRECTORIO_BACKEND . "createUser.php";
-        } else {
-            $usuario = User::createFromArray($_POST);
-            //Guardamos en la BD
-            UserModel::saveUser($usuario);
-            header('Location: /user');
         }
-
-        //Tenemos que guardarlos en la BD
-        $usuario = new User(UuidV4::uuid4(),$_POST['username']);
-
-        $usuario->setPassword($_POST['password'])->setEmail($_POST['email']);
+        //Creo el usuario
+        $usuario = User::createFromArray($_POST);
+        //Lo guardo en la BD
+        UserModel::saveUser($usuario);
+        //Vuelvo a la lista de usuarios
+        header('Location: /user');
         exit;
     }
+
 
     public function edit($id){
         //Buscamos en la base de datos el usuario con el id $id

@@ -1,16 +1,4 @@
 <?php
-
-
-
-
-
-
-//ESTO ES LA COPIA DE EDITUSER FALTA MODIFICAR EL SCRIPT DE JAVASCRIPT
-
-
-
-
-
 use App\Enum\PhysicGenero;
 use App\Enum\PhysicType;
 
@@ -37,25 +25,25 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
             <label for="selectGenero" class="form-label">Género</label>
             <select class="form-select" id="selectGenero" name="genero">
                 <option>Seleccione el género</option>
-                <option value="masculino"
+                <option value="MASCULINO"
                         <?php if ($physic->getGenero() === PhysicGenero::MASCULINO) {
                             echo "selected";
                         } ?>
                 >Masculino
                 </option>
-                <option value="femenino"
+                <option value="FEMENINO"
                         <?php if ($physic->getGenero() === PhysicGenero::FEMENINO) {
                             echo "selected";
                         } ?>
                 >Femenino
                 </option>
-                <option value="noAplica"
+                <option value="NO_APLICA"
                         <?php if ($physic->getGenero() === PhysicGenero::NO_APLICA) {
                             echo "selected";
                         } ?>
                 >No Aplica
                 </option>
-                <option value="notDefined"
+                <option value="NOT_DEFINED"
                         <?php if ($physic->getGenero() === PhysicGenero::NOT_DEFINED) {
                             echo "selected";
                         } ?>
@@ -69,8 +57,8 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
             <input type="text" class="form-control" id="inputNacionalidad" name="nacionalidad" value="<?= $physic->getNacionalidad() ?>">
         </div>
         <div class="mb-3">
-            <label for="inputLugDef" class="form-label">Lugar de defunción</label>
-            <input type="text" class="form-control" id="inputLugDef" name="lugarDeDefuncion" value="<?= $physic->getLugDefuncion() ?>">
+            <label for="inputLugarDef" class="form-label">Lugar de defunción</label>
+            <input type="text" class="form-control" id="inputLugarDef" name="lugarDeDef" value="<?= $physic->getLugarDef() ?>">
         </div>
         <div class="mb-3">
             <label for="inputDescripcion" class="form-label">Descripción</label>
@@ -78,31 +66,37 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
         </div>
         <div class="mb-3">
             <label for="inputEtiquetas" class="form-label">Etiquetas</label>
-            <input type="text" class="form-control" id="inputEtiquetas" name="etiquetas" value="<?= $physic->getEtiquetas() ?>">
+            <input type="text" class="form-control" id="inputEtiquetas" name="etiquetas" value="<?= $physic->getEtiqueta() ?>">
         </div>
         <div class="mb-3">
             <label for="selectTipo" class="form-label">Tipo</label>
             <select class="form-select" id="selectTipo" name="SelectTipo">
                 <option>Seleccione el tipo de entidad</option>
-                <option value="admin"
+                <option value="PERSONA"
                         <?php if ($physic->getType() === PhysicType::PERSONA) {
                             echo "selected";
                         } ?>
                 >Persona
                 </option>
-                <option value="editor"
+                <option value="INSTITUCION"
                         <?php if ($physic->getType() === PhysicType::INSTITUCION) {
                             echo "selected";
                         } ?>
                 >Institución
                 </option>
-                <option value="regular"
+                <option value="INSTRUMENTO"
                         <?php if ($physic->getType() === PhysicType::INSTRUMENTO) {
                             echo "selected";
                         } ?>
                 >Instrumento
                 </option>
-                <option value="advertising"
+                <option value="EXPERIMENTO"
+                        <?php if ($physic->getType() === PhysicType::EXPERIMENTO) {
+                            echo "selected";
+                        } ?>
+                >Experimento
+                </option>
+                <option value="PUBLICACION"
                         <?php if ($physic->getType() === PhysicType::PUBLICACION) {
                             echo "selected";
                         } ?>
@@ -112,7 +106,7 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
         </div>
         <div class="mb-3">
             <label for="inputImagen" class="form-label">Nombre de la Imagen</label>
-            <input type="text" class="form-control" id="inputImagen" name="nombreImagen" value="<?= $physic->getImagen()?>">
+            <input type="text" class="form-control" id="inputImagen" name="nombreImagen" value="<?= $physic->getFoto()?>">
         </div>
 
         <div class="text-bg-danger" id="diverrores">
@@ -125,25 +119,23 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
            onclick="return confirm('Esta acción cancelará los cambios ¿deseas continuar?')">
             Cancelar
         </a>
-
     </form>
-
-
-
-
 
     <script>
         function peticionPUT() {
-            const username = document.getElementById('inputUsername').value;
-            const email = document.getElementById('inputEmail').value;
-            const password = document.getElementById('inputPassword').value; // puede ir vacío
-            const birthdate = document.getElementById('inputBirthdate').value;
-            const type = document.getElementById('selectType').value;
+            const nombre = document.getElementById('inputNombre').value;
+            const apellido = document.getElementById('inputApellido').value;
+            const genero = document.getElementById('selectGenero').value;
+            const nacionalidad = document.getElementById('inputNacionalidad').value;
+            const lugar_def = document.getElementById('inputLugarDef').value;
+            const descripcion = document.getElementById('inputDescripcion').value;
+            const etiqueta = document.getElementById('inputEtiquetas').value;
+            const type = document.getElementById('selectTipo').value;
+            const foto = document.getElementById('inputImagen').value; // puede ir vacío
 
-            const payload = {username, email, birthdate, type};
-            if (password.trim() !== "") payload.password = password;
+            const payload = {nombre, apellido, genero, nacionalidad, lugar_def, descripcion, etiqueta, type, foto};
 
-            fetch("/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>", {
+            fetch("/physic/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>", {
                 method: "PUT",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(payload)
@@ -158,8 +150,8 @@ include_once DIRECTORIO_BACKEND . "/templates/partials/main.header.admin.php";
                         //Genera el div con el mensaje de éxito y el botón volver
                         divMensajes.innerHTML = `
                             <div class="alert alert-success d-inline-flex align-items-center gap-2" role="alert" style="width:auto; display:inline-flex;">
-                            <span>Usuario modificado correctamente.</span>
-                            <a class="btn btn-sm btn-outline-dark" href="/user/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>">Volver</a>
+                            <span>Físico modificado correctamente.</span>
+                            <a class="btn btn-sm btn-outline-dark" href="/physic/<?=htmlspecialchars($physic->getId(), ENT_QUOTES)?>">Volver</a>
                             </div>
                             `;
                         //Resalta el mensaje.

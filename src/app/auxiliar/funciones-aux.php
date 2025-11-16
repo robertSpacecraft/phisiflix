@@ -6,26 +6,20 @@ function calcularLetraDNI(int $dni): string
     return LETRAS_DNI[$dni % 23];
 }
 
-function uploadImg($foto)
-{
-    $base = dirname(__DIR__);
-    $directorio = scandir($base);
-
-    //Si no existe uploaded lo creo
-    if (!in_array('uploaded', $directorio)) {
-        mkdir($base . '/uploaded');
+function uploadImg(string $campo): bool {
+    if (!isset($_FILES[$campo]) || $_FILES[$campo]['error'] !== UPLOAD_ERR_OK) {
+        return false;
     }
+    $nombre = $_FILES[$campo]['name'];
+    $tmpName = $_FILES[$campo]['tmp_name'];
+    $destino = __DIR__ . '/../uploaded/physics_img/' . $nombre;
 
-    //Si no existe physics_img lo creo
-    $subdir = $base . '/uploaded/physics_img';
-    if (!is_dir($subdir)) {
-        mkdir($subdir);
+    if (move_uploaded_file($tmpName, $destino)) {
+        return true;
     }
-
-    //Subo la imagen a physics_img
-    $directorioDestino = $subdir . '/' . $_FILES[$foto]['name'];
-    move_uploaded_file($_FILES[$foto]['tmp_name'], $directorioDestino);
+    return false;
 }
+
 
 //Función para obtener la conexión:
 function getConnexion(): ?PDO{
