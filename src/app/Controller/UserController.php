@@ -8,15 +8,12 @@ use App\Interface\ControlerInterface;
 use App\Model\UserModel;
 use Ramsey\Uuid\Rfc4122\UuidV4;
 
-class UserController implements ControlerInterface
-{
+class UserController implements ControlerInterface {
     public function index(){
         //Recuperar todos los usuarios de la base de datos
         $usuarios = UserModel::getAllUsers();
-
         //Llamar a la vista que represente a estos usuarios
         include_once DIRECTORIO_BACKEND . "showUsers.php";
-
     }
     public function show($id){
        //Recuperar los datos del usuario con el valor de la $id desde la BD
@@ -86,7 +83,6 @@ class UserController implements ControlerInterface
         }
         return json_encode($resultado);
     }
-
     public function destroy($id){
         UserModel::deleteUserById($id);
     }

@@ -38,7 +38,6 @@ class PhysicController implements ControlerInterface
         } else {
             $datos['foto'] = "";
         }
-
         //Valido
         $resultado = Physic::validatePhysicCreation($datos);
         if (is_array($resultado)) {
@@ -53,10 +52,8 @@ class PhysicController implements ControlerInterface
         }
         //Si todo es correcto, creo objeto Physic desde los datos
         $physic = Physic::createFromArray($datos);
-
         //Lo guardo en la BD
         $ok = PhysicModel::savePhysic($physic);
-
         //Subo la imagen usando la función uploadImg
         uploadImg('foto');
 
@@ -70,8 +67,6 @@ class PhysicController implements ControlerInterface
         ]);
     }
 
-
-
     public function edit($id){
         //Busco en la BD el physic
         $physic = PhysicModel::getPhysicById($id);
@@ -80,17 +75,13 @@ class PhysicController implements ControlerInterface
         include_once DIRECTORIO_BACKEND . "editPhysic.php";
     }
 
-    public function update($id)
-    {
+    public function update($id) {
         header('Content-Type: application/json; charset=utf-8');
-
         //Obtengo los datos de la petición PUT
         $put = json_decode(file_get_contents("php://input"), true) ?? [];
         $put['id'] = $id;
-
         //Valido los datos, si no son correctos devolverá un array con el error
         $resultado = Physic::validatePhysicCreation($put);
-
         if (is_array($resultado)) {
             //Si es un array es porque ha habido algún error y entrará aquí
             http_response_code(422);
@@ -106,10 +97,8 @@ class PhysicController implements ControlerInterface
         $oldPhysic = PhysicModel::getPhysicById($id);
         //Edito los datos con el array recibido
         $newPhysic = Physic::editFromArray($oldPhysic, $put);
-
         //Actualizo la BD
         $ok = PhysicModel::updatePhysic($newPhysic);
-
         if (!$ok) {
             http_response_code(500);
             echo json_encode([
@@ -120,7 +109,6 @@ class PhysicController implements ControlerInterface
             ]);
             return;
         }
-
         http_response_code(200);
         echo json_encode([
             "error"   => false,
@@ -141,9 +129,11 @@ class PhysicController implements ControlerInterface
         ]);
     }
 
+    public function destroy($id) {
+        PhysicModel::deletePhysicById($id);
+    }
 
-    public function destroy($id)
-    {
-        // TODO: Implement destroy() method.
+    public function destroyAll(){
+        PhysicModel::deletePhysicAllPhyics();
     }
 }

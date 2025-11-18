@@ -7,17 +7,14 @@ use PDO;
 use PDOException;
 
 
-class PhysicModel
-{
-    public static function getAllPhysics()
-    {
+class PhysicModel {
+    public static function getAllPhysics() {
         try {
             $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             return null;
         }
-
         $sql = "SELECT * FROM physic";
         $sentenciaPreparada = $conexion->prepare($sql);
         $sentenciaPreparada->execute();
@@ -32,16 +29,13 @@ class PhysicModel
         }
         return null;
     }
-
-    public static function getPhysicById($id): ?Physic
-    {
+    public static function getPhysicById($id): ?Physic {
         try {
             $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             return null;
         }
-
         $sql = "SELECT * FROM physic WHERE id = ?";
         $sentenciaPreparada = $conexion->prepare($sql);
         $sentenciaPreparada->bindValue(1, $id);
@@ -57,8 +51,7 @@ class PhysicModel
         }
     }
 
-    public static function savePhysic(Physic $physic): bool
-    {
+    public static function savePhysic(Physic $physic): bool {
         try {
             $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -87,9 +80,7 @@ class PhysicModel
         }
         return false;
     }
-
-    public static function updatePhysic(Physic $physic): bool
-    {
+    public static function updatePhysic(Physic $physic): bool {
         try {
             $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
             $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -120,4 +111,41 @@ class PhysicModel
         }
         return false;
     }
+    public static function deletePhysicById($id): bool {
+        try {
+            $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            return false;
+        }
+        $sql = "DELETE FROM physic WHERE id = ?";
+        $sentenciaPreparada = $conexion->prepare($sql);
+        $sentenciaPreparada->bindValue(1, $id);
+        $sentenciaPreparada->execute();
+
+        if ($sentenciaPreparada->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function deletePhysicAllPhysics(): bool {
+        try {
+            $conexion = new PDO(URI_SERVIDOR, DATABASE_USERNAME, DATABASE_PASSWORD);
+            $conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            return false;
+        }
+
+        $sql = "TRUNCATE TABLE physic";
+        $sentenciaPreparada = $conexion->prepare($sql);
+        $sentenciaPreparada->execute();
+        if ($sentenciaPreparada->rowCount() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+

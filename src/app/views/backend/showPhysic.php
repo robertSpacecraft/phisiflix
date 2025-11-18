@@ -1,7 +1,7 @@
 <?php
 $titulo = "Administración de Physics";
-$tituloSeccion = "Datos del físico: " . $physic->getNombre() . " " . $physic->getApellido();
-$rutaAgregar = "/physic/create";
+$tituloSeccion = "Datos de: " . $physic->getNombre() . " " . $physic->getApellido();
+$rutaAgregar = "/admin/physic/create";
 $botonAgregar = "Agregar Físico";
 include_once DIRECTORIO_BACKEND . "/templates/partials/head.admin.php";
 include_once DIRECTORIO_BACKEND . "/templates/partials/header.admin.php";
