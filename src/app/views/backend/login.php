@@ -25,6 +25,7 @@
 </head>
 <body>
 <div class="contenido">
+
     <nav>
         <a href="/"><img class="logo" src="<?=DIRECTORIO_IMG_FRONTEND?>logo3SinFondo.png" alt="physiFlixLogo" /></a>
     </nav>

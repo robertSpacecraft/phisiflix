@@ -8,6 +8,7 @@ use Phroute\Phroute\RouteCollector;
 
     use App\Controller\UserController;
     use App\Controller\PhysicController;
+    use App\Controller\HitoController;
 
     session_start();
     //Crea una instancia del router
@@ -78,6 +79,10 @@ $router->get('/physic/{id}', [PhysicController::class, 'show']);
 $router->post('/physic', [PhysicController::class, 'store']);
 $router->put('/physic/{id}', [PhysicController::class, 'update']); //La vista editPhysic.php llama desde el script a este endpoint
 $router->delete('/physic/{id}', [PhysicController::class, 'destroy']);
+
+//Hitos
+$router->get('/hito', [HitoController::class, 'index']);
+
 
 
     //Funciones
